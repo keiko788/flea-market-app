@@ -11,6 +11,7 @@ class Purchase extends Model
     use HasFactory;
 
     public const PAYMENT_CONVENIENCE_STORE = 1;
+
     public const PAYMENT_CARD = 2;
 
     protected $fillable = [

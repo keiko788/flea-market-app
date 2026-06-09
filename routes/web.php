@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
+});
+
+// 仮ルート
+Route::middleware('auth')->group(function () {
+    Route::get('/', fn () => '準備中')->name('items.index');
+});
+
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [LoginController::class, 'create'])->name('login');
+    Route::post('/login', [LoginController::class, 'store']);
+
+    Route::get('/register', function () {
+        return view('auth.register');
+    })->name('register');
+
+    Route::get('/mypage/profile', fn () => 'プロフィール設定画面')->name('profile.edit');
 });

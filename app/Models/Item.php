@@ -14,8 +14,11 @@ class Item extends Model
     use HasFactory;
 
     public const CONDITION_GOOD = 1;
+
     public const CONDITION_NO_DAMAGE = 2;
+
     public const CONDITION_SOME_DAMAGE = 3;
+
     public const CONDITION_BAD = 4;
 
     protected $fillable = [
