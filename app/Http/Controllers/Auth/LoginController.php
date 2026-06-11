@@ -18,7 +18,7 @@ class LoginController extends Controller
     }
 
     /**
-     * ログイン認証を行い、認証成功時はs商品一覧画面げ遷移する
+     * ログイン認証を行い、認証成功時は商品一覧画面へ遷移する
      */
     public function store(LoginRequest $request)
     {

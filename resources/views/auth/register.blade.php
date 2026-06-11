@@ -8,7 +8,7 @@
                 <!-- ユーザー名 -->
                 <div>
                     <label for="name" class="block text-2xl font-bold mb-2">ユーザー名</label>
-                    <input id="email" class="block w-full border border-[#5F5F5F] h-14
+                    <input id="name" class="block w-full border border-[#5F5F5F] h-14
                     rounded px-4"
                         type="name" name="name" value="{{ old('name') }}" autofocus />
                     @if ($errors->get('name'))
