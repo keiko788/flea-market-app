@@ -14,15 +14,13 @@
     <header class="bg-black h-[82px] w-full px-[25px]">
         <div class="max-w-[1512px] w-full mx-auto pl-10 pr-[26px] flex items-center justify-between h-[82px]">
             <!-- coachtechタイトル -->
-            <a href="/">
+            <a href="{{ route('items.index') }}">
                 <img src="{{ asset('images/logo.png') }}" alt="COACHTECH" class="w-[360px]">
             </a>
-            <!-- 検索フィーム -->
+            <!-- 検索フォーム -->
             <div class="w-4/12">
-                <form action="route('items.index') method
-             GET">
-                    @csrf
-                    <input type="text" name="input" placeholder="なにをお探しですか？" class="w-full h-[50px] rounded-[5px] text-2xl placeholder:text-black px-10">
+                <form action="{{ route('items.index') }}" method="GET" >
+                    <input type="text" name="keyword" value="{{ request('keyword') }}" placeholder="なにをお探しですか？" class="w-full h-[50px] rounded-[5px] text-2xl placeholder:text-black px-10">
                 </form>
 
             </div>
