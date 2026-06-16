@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
+Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('items.show');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'create'])->name('login');
@@ -28,7 +31,14 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    // プロフィール画面
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-
     Route::patch('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    // コメント送信
+    Route::post('/item/{item_id}/comment', [CommentController::class, 'store'])->name('comments.store');
+    // いいね機能
+    Route::post('/item/{item_id}/like', [LikeController::class, 'store'])->name('likes.store');
+    Route::delete('/item/{item_id}/like', [LikeController::class, 'destroy'])->name('likes.destroy');
+
 });

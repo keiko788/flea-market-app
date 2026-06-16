@@ -16,10 +16,10 @@
             <ul class="flex flex-wrap gap-x-[calc((100%-1160px)/3)] gap-y-[77px] w-full">
                 @foreach($items as $item)
                 <li>
-                    <div class="w-[290px] h-[281px] overflow-hidden rounded mb-2">
+                    <a href="{{ route('items.show', $item) }}" class="block w-[290px] h-[281px] overflow-hidden rounded mb-2">
                         <img src="{{ asset('storage/' . $item->image_path) }}" alt="商品画像"
                             class="w-full h-full object-cover">
-                    </div>
+                    </a>
                     <h2 class="font-normal text-[25px]">{{ $item->name }}</h2>
                 </li>
                 @endforeach

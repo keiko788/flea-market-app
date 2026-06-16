@@ -12,9 +12,11 @@
 
 <body class="font-sans">
     <header class="bg-black h-[82px] w-full px-[25px] py-[22px]">
-                <a href="/">
-                    <img src="{{ asset('images/logo.png') }}" alt="COACHTECH" class="w-[360px]">
-                </a>
+
+        <a href="{{ route('items.index') }}">
+            <img src="{{ asset('images/logo.png') }}" alt="COACHTECH" class="w-[360px]">
+        </a>
+        
     </header>
     <main>
         {{ $slot }}

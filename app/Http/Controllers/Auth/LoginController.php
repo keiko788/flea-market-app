@@ -33,6 +33,12 @@ class LoginController extends Controller
         // ログイン成功ごにセッションIDを再生成し、セッション固定攻撃を防ぐ
         $request->session()->regenerate();
 
+        // 初回ログイン後はプロフィール編集画面へ遷移
+        $user = auth()->user();
+        if (! $user->profile) {
+            return redirect()->route('profile.edit');
+        }
+
         return redirect()->intended('/');
     }
 }

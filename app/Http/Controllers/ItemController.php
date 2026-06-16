@@ -32,4 +32,25 @@ class ItemController extends Controller
 
         return view('items.index', compact('items', 'tab'));
     }
+
+    // 商品詳細画面を表示
+    public function show(Item $item_id)
+    {
+        $item = $item_id;
+
+        $item->load([
+            'categories',
+            'comments.user.profile',
+            'likes',
+        ]);
+
+        $isLiked = auth()->check()
+            ? auth()->user()
+                ->likedItems()
+                ->where('items.id', $item->id)
+                ->exists()
+            : false;
+
+        return view('items.show', compact('item', 'isLiked'));
+    }
 }

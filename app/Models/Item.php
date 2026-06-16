@@ -53,7 +53,8 @@ class Item extends Model
 
     public function comments(): HasMany
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)
+            ->orderBy('created_at', 'desc');
     }
 
     // 商品の状態のラベル取得
