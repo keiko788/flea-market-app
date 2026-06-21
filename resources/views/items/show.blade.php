@@ -2,8 +2,13 @@
     <div class="px-[111px]">
         <div class="max-w-[1290px] mx-auto">
             <div class="flex justify-between mt-[95px] mb-[178px] w-full">
-                <div class="w-[46%] h-[46%] overflow-hidden rounded">
+                <div class="w-[46%] h-[46%] overflow-hidden rounded relative">
                     <img src="{{ asset('storage/' . $item->image_path) }}" alt="商品画像" class="w-full h-full object-cover">
+                    @if ($item->purchase)
+                    <div class="absolute top-[-40px] left-[-165px] rotate-[-45deg] bg-red-500 text-white font-bold text-5xl w-[460px] text-center pb-6 pt-[120px]">
+                        SOLD
+                    </div>
+                    @endif
                 </div>
 
                 <div class="pr-[10px]">
@@ -40,9 +45,11 @@
 
                     </div>
 
-                    <form action="/purchase/{item_id}" method="GET">
-                        <button type="submit" class="text-white text-[30px] font-bold flex justify-center items-center bg-[#FF5555] w-[570px] h-14 rounded mb-9">購入手続きへ</button>
-                    </form>
+                    @if ($item->purchase)
+                    <div class="text-white text-[30px] font-bold flex justify-center items-center bg-[#D9D9D9] w-[570px] h-14 rounded mb-9 cursor-not-allowed">Sold Out</div>
+                    @else
+                    <a href="{{ route('purchase.show', $item->id) }}" class="text-white text-[30px] font-bold flex justify-center items-center bg-[#FF5555] w-[570px] h-14 rounded mb-9">購入手続きへ</a>
+                    @endif
 
                     <h3 class="text-4xl font-bold mb-[48px]">商品説明</h3>
                     <p class="text-2xl mb-[64px]">

@@ -5,6 +5,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PurchaseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,4 +42,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/item/{item_id}/like', [LikeController::class, 'store'])->name('likes.store');
     Route::delete('/item/{item_id}/like', [LikeController::class, 'destroy'])->name('likes.destroy');
 
+    // 商品購入機能
+    Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
+    Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'editAddress'])->name('purchase.edit.address');
+    Route::patch('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress'])->name('purchase.update.address');
+    Route::post('purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
 });

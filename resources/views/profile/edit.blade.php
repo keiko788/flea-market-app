@@ -37,7 +37,7 @@
                 <label for="name" class="block text-2xl font-bold mb-2">ユーザー名</label>
                 <input type="text" id="email" class="block w-full border border-[#5F5F5F] h-14
                     rounded px-4"
-                    type="name" name="name" value="{{ old('name', $user->name ?? '') }}" autofocus />
+                    name="name" value="{{ old('name') }}" autofocus />
                 @if ($errors->get('name'))
                 <ul class="text-sm text-red-600 space-y-1 mt-2">
                     @foreach ((array) $errors->get('name') as $message)
@@ -52,7 +52,7 @@
                 <label for="postal_code" class="block text-2xl font-bold mb-2">郵便番号</label>
                 <input type="text" id="postal_code" class="block w-full border border-[#5F5F5F] h-14
                     rounded px-4"
-                    type="postal_code" name="postal_code" value="{{ old('postal_code', $profile?->postal_code) }}" />
+                    name="postal_code" value="{{ old('postal_code', $profile?->postal_code) }}" />
                 @if ($errors->get('postal_code'))
                 <ul class="text-sm text-red-600 space-y-1 mt-2">
                     @foreach ((array) $errors->get('postal_code') as $message)
@@ -67,7 +67,7 @@
                 <label for="address" class="block text-2xl font-bold mb-2">住所</label>
                 <input type="text" id="address" class="block w-full border border-[#5F5F5F] h-14
                     rounded px-4"
-                    type="address" name="address" value="{{ old('address', $profile?->address) }}" />
+                    name="address" value="{{ old('address', $profile?->address) }}" />
                 @if ($errors->get('address'))
                 <ul class="text-sm text-red-600 space-y-1 mt-2">
                     @foreach ((array) $errors->get('address') as $message)
@@ -80,9 +80,9 @@
             <!-- 建物名 -->
             <div class="mt-[43px]">
                 <label for="building" class="block text-2xl font-bold mb-2">建物名</label>
-                <input type="text" id="address" class="block w-full border border-[#5F5F5F] h-14
+                <input type="text" id="building" class="block w-full border border-[#5F5F5F] h-14
                     rounded px-4"
-                    type="building" name="building" value="{{ old('building', $profile?->building) }}" />
+                    name="building" value="{{ old('building', $profile?->building) }}" />
                 @if ($errors->get('building'))
                 <ul class="text-sm text-red-600 space-y-1 mt-2">
                     @foreach ((array) $errors->get('building') as $message)

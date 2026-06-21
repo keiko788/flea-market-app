@@ -41,7 +41,7 @@ class ProfileController extends Controller
             [
                 'postal_code' => $validated['postal_code'],
                 'address' => $validated['address'],
-                'building' => $validated['building'] ?? null,
+                'building' => $request->input('building'),
                 'profile_image_path' => $path ?? $user->profile?->profile_image_path,
             ]
         );

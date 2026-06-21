@@ -17,6 +17,7 @@ class ItemController extends Controller
             $items = auth()->check()
                 ? auth()->user()
                     ->likedItems()
+                    ->with('purchase')
                     ->when($keyword, function ($query, $keyword) {
                         $query->where('items.name', 'like', "%{$keyword}%");
                     })
@@ -25,7 +26,12 @@ class ItemController extends Controller
                 : collect();
         } else {
             $items = Item::query()
-                ->where('items.name', 'like', "%{$keyword}%")
+                ->with('purchase')
+                ->when(
+                    $keyword,
+                    function ($query, $keyword) {
+                        $query->where('items.name', 'like', "%{$keyword}%");
+                    })
                 ->latest()
                 ->get();
         }
