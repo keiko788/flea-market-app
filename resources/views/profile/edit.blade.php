@@ -9,7 +9,7 @@
             <!-- プロフィール画像選択 -->
             <div class="flex items-center gap-10">
                 <!-- プレビュー -->
-                <div class="w-[150px] h-[150px] rounded-full bg-gray-300 overflow-hidden">
+                <div class="w-[150px] h-[150px] rounded-full bg-[#D9D9D9] overflow-hidden">
                     @if ($profile?->profile_image_path)
                     <img
                         src="{{ asset('storage/' . $profile->profile_image_path) }}"
@@ -37,7 +37,7 @@
                 <label for="name" class="block text-2xl font-bold mb-2">ユーザー名</label>
                 <input type="text" id="email" class="block w-full border border-[#5F5F5F] h-14
                     rounded px-4"
-                    name="name" value="{{ old('name') }}" autofocus />
+                    name="name" value="{{ old('name', $profile?->user->name) }}" autofocus />
                 @if ($errors->get('name'))
                 <ul class="text-sm text-red-600 space-y-1 mt-2">
                     @foreach ((array) $errors->get('name') as $message)
@@ -94,6 +94,8 @@
 
             <button type="submit" class="w-full text-white font-bold text-[26px] bg-[#FF5555] rounded-[5px] flex items-center justify-center  mt-[67px] mb-[127px] h-[65.25px]">更新する</button>
 
+            <!-- 更新後のリダイレクト先を保持 -->
+            <input type="hidden" name="redirect_to" value="{{ request('redirect_to') }}">
 
         </form>
     </div>

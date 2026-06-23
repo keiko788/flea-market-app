@@ -12,7 +12,7 @@
 
     <!-- 商品一覧リスト -->
     <div class="px-[69px]">
-        <div class="max-w-[1374px] mx-auto mt-[76px]">
+        <div class="max-w-[1374px] mx-auto my-[76px]">
             <ul class="flex flex-wrap gap-x-[calc((100%-1160px)/3)] gap-y-[77px] w-full">
                 @foreach($items as $item)
                 <li>

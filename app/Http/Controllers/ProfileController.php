@@ -46,6 +46,10 @@ class ProfileController extends Controller
             ]
         );
 
+        if ($request->redirect_to === 'mypage') {
+            return redirect()->route('mypage.index');
+        }
+
         return redirect()->route('items.index');
     }
 }
