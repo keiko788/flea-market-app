@@ -32,14 +32,4 @@ class Purchase extends Model
     {
         return $this->belongsTo(Item::class);
     }
-
-    // 支払い方法のラベル取得
-    public function getPaymentMethodLabelAttribute(): string
-    {
-        return match ($this->payment_method) {
-            self::PAYMENT_CONVENIENCE_STORE => 'コンビニ払い',
-            self::PAYMENT_CARD => 'カード支払い',
-            default => '不明',
-        };
-    }
 }

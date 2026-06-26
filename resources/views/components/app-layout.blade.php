@@ -17,7 +17,7 @@
             <a href="{{ route('items.index') }}">
                 <img src="{{ asset('images/logo.png') }}" alt="COACHTECH" class="w-[360px]">
             </a>
-            
+
             <!-- 検索フォーム -->
             <div class="w-4/12">
                 <form action="{{ route('items.index') }}" method="GET">
@@ -42,7 +42,7 @@
                     </li>
 
                     <li class="flex bg-white h-full w-[100px] rounded items-center justify-center">
-                        <a href="/sell" class="text-2xl">出品</a>
+                        <a href="{{ route('items.create') }}" class="text-2xl cursor-pointer">出品</a>
                     </li>
 
                 </ul>

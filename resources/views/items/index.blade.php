@@ -1,11 +1,18 @@
 <x-app-layout>
+    <h1 class="sr-only">商品一覧</h1>
+
     <nav class="border-b-2 border-[#5F5F5F] pl-[210px]">
         <ul class="flex gap-[82px] mt-[47px] mb-2">
             <li>
-                <a href="{{ route('items.index', ['keyword' => request('keyword')]) }}" class="text-2xl font-bold {{ request('tab') !== 'mylist' ? 'text-[#FF0000]' : 'text-[#5F5F5F]' }}">おすすめ</a>
+                <a href="{{ route('items.index', ['keyword' => request('keyword')]) }}" class="text-2xl font-bold {{ request('tab') !== 'mylist' ? 'text-[#FF0000]' : 'text-[#5F5F5F]' }}">
+                    おすすめ
+                </a>
             </li>
             <li>
-                <a href="{{ route('items.index', array_merge(request()->query(), ['tab' => 'mylist'])) }}" class="text-2xl font-bold {{ request('tab') === 'mylist' ? 'text-[#FF0000]' : 'text-[#5F5F5F]' }}">マイリスト</a>
+                <a href="{{ route('items.index', array_merge(request()->query(), ['tab' => 'mylist'])) }}"
+                class="text-2xl font-bold {{ request('tab') === 'mylist' ? 'text-[#FF0000]' : 'text-[#5F5F5F]' }}">
+                    マイリスト
+                </a>
             </li>
         </ul>
     </nav>
@@ -15,20 +22,7 @@
         <div class="max-w-[1374px] mx-auto my-[76px]">
             <ul class="flex flex-wrap gap-x-[calc((100%-1160px)/3)] gap-y-[77px] w-full">
                 @foreach($items as $item)
-                <li>
-                    <a href="{{ route('items.show', $item) }}" class="block w-[290px] h-[281px] overflow-hidden rounded mb-2">
-                        <div class="relative overflow-hidden w-full h-full">
-                            <img src="{{ asset('storage/' . $item->image_path) }}" alt="商品画像"
-                                class="w-full h-full object-cover">
-                            @if ($item->purchase)
-                            <div class="absolute top-[-16px] left-[-70px] rotate-[-45deg] bg-red-500 text-white font-bold text-2xl w-[200px] text-center pb-4 pt-12">
-                                SOLD
-                            </div>
-                            @endif
-                        </div>
-                    </a>
-                    <h2 class="font-normal text-[25px]">{{ $item->name }}</h2>
-                </li>
+                <x-item-card :item="$item" />
                 @endforeach
             </ul>
         </div>

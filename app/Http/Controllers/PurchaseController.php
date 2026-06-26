@@ -14,6 +14,12 @@ class PurchaseController extends Controller
     {
         $item = $item_id;
         $user = auth()->user();
+
+        // 購入不可の商品は詳細画面へリダイレクト
+        if ($item->user_id === $user->id || $item->purchase()->exists()) {
+            return redirect()->route('items.show', $item->id);
+        }
+
         $profile = $user->profile;
 
         return view('purchase.show', compact('item', 'user', 'profile'));
@@ -44,11 +50,13 @@ class PurchaseController extends Controller
         return redirect()->route('purchase.show', $item->id);
     }
 
+    // 購入処理を実行し、購入情報を保存する
     public function store(PurchaseRequest $request, Item $item_id)
     {
         $item = $item_id;
 
-        if ($item->purchase()->exists()) {
+        // 購入不可の商品は詳細画面へリダイレクト
+        if ($item->user_id === auth()->id() || $item->purchase()->exists()) {
             return redirect()->route('items.show', $item->id);
         }
 

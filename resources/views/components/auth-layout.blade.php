@@ -16,7 +16,7 @@
         <a href="{{ route('items.index') }}">
             <img src="{{ asset('images/logo.png') }}" alt="COACHTECH" class="w-[360px]">
         </a>
-        
+
     </header>
     <main>
         {{ $slot }}

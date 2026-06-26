@@ -47,8 +47,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
     Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'editAddress'])->name('purchase.edit.address');
     Route::patch('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress'])->name('purchase.update.address');
-    Route::post('purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
+    Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
 
     // プロフィール画面
     Route::get('/mypage', [MypageController::class, 'index'])->name('mypage.index');
+
+    // 商品出品機能
+    Route::get('/sell', [ItemController::class, 'create'])->name('items.create');
+    Route::post('/sell', [ItemController::class, 'store'])->name('items.store');
 });

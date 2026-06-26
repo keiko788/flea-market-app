@@ -8,7 +8,6 @@
 
             <!-- プロフィール画像選択 -->
             <div class="flex items-center gap-10">
-                <!-- プレビュー -->
                 <div class="w-[150px] h-[150px] rounded-full bg-[#D9D9D9] overflow-hidden">
                     @if ($profile?->profile_image_path)
                     <img
@@ -18,26 +17,33 @@
                     @endif
                 </div>
 
-                <!-- ボタン -->
+                <!-- プロフィール画像選択ボタン -->
                 <label
                     for="profile_image"
                     class="cursor-pointer border-2 border-[#FF5555] text-[#FF5555] rounded-[10px] text-xl font-bold px-4 py-2">
-                    画像を選択する</label>
+                    画像を選択する
+                </label>
                 <input
                     type="file"
                     id="profile_image"
                     name="profile_image"
                     accept=".jpeg,.png"
                     class="hidden">
+                @error('profile_image')
+                <p class="text-red-600 ml-[67px]">
+                    {{ $message }}
+                </p>
+                @enderror
+
 
             </div>
 
             <!-- ユーザー名 -->
             <div class="mt-[76px]">
                 <label for="name" class="block text-2xl font-bold mb-2">ユーザー名</label>
-                <input type="text" id="email" class="block w-full border border-[#5F5F5F] h-14
-                    rounded px-4"
-                    name="name" value="{{ old('name', $profile?->user->name) }}" autofocus />
+                <input type="text" id="email" class="block w-full border border-[#5F5F5F] h-14 rounded px-4"
+                    name="name"
+                    value="{{ old('name', $profile?->user->name) }}" autofocus />
                 @if ($errors->get('name'))
                 <ul class="text-sm text-red-600 space-y-1 mt-2">
                     @foreach ((array) $errors->get('name') as $message)
@@ -68,13 +74,12 @@
                 <input type="text" id="address" class="block w-full border border-[#5F5F5F] h-14
                     rounded px-4"
                     name="address" value="{{ old('address', $profile?->address) }}" />
-                @if ($errors->get('address'))
-                <ul class="text-sm text-red-600 space-y-1 mt-2">
-                    @foreach ((array) $errors->get('address') as $message)
-                    <li>{{ $message }}</li>
-                    @endforeach
-                </ul>
-                @endif
+                @error('address')
+                <p class="text-red-600 ml-[67px]">
+                    {{ $message }}
+                </p>
+                @enderror
+
             </div>
 
             <!-- 建物名 -->
@@ -83,16 +88,11 @@
                 <input type="text" id="building" class="block w-full border border-[#5F5F5F] h-14
                     rounded px-4"
                     name="building" value="{{ old('building', $profile?->building) }}" />
-                @if ($errors->get('building'))
-                <ul class="text-sm text-red-600 space-y-1 mt-2">
-                    @foreach ((array) $errors->get('building') as $message)
-                    <li>{{ $message }}</li>
-                    @endforeach
-                </ul>
-                @endif
             </div>
 
-            <button type="submit" class="w-full text-white font-bold text-[26px] bg-[#FF5555] rounded-[5px] flex items-center justify-center  mt-[67px] mb-[127px] h-[65.25px]">更新する</button>
+            <button type="submit" class="w-full text-white font-bold text-[26px] bg-[#FF5555] rounded-[5px] flex items-center justify-center  mt-[67px] mb-[127px] h-[65.25px] cursor-pointer">
+                更新する
+            </button>
 
             <!-- 更新後のリダイレクト先を保持 -->
             <input type="hidden" name="redirect_to" value="{{ request('redirect_to') }}">
