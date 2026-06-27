@@ -6,6 +6,8 @@ use App\Http\Requests\AddressRequest;
 use App\Http\Requests\PurchaseRequest;
 use App\Models\Item;
 use App\Models\Purchase;
+use Stripe\Checkout\Session;
+use Stripe\Stripe;
 
 class PurchaseController extends Controller
 {
@@ -62,7 +64,8 @@ class PurchaseController extends Controller
 
         $validated = $request->validated();
 
-        Purchase::create([
+        // 購入情報を登録
+        $purchase = Purchase::create([
             'user_id' => auth()->id(),
             'item_id' => $item->id,
             'payment_method' => $validated['payment_method'],
@@ -73,6 +76,27 @@ class PurchaseController extends Controller
 
         session()->forget('purchase_address');
 
-        return redirect()->route('items.index');
+        // Stripe APIキーを設定
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        // Stripe決済画面へ遷移するためのCheckoutセッションを作成
+        $checkoutSession = Session::create([
+            'payment_method_types' => [$purchase->stripe_payment_method],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'jpy',
+                    'product_data' => [
+                        'name' => $item->name,
+                    ],
+                    'unit_amount' => $item->price,
+                ],
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => route('items.index'),
+            'cancel_url' => route('purchase.show', $item->id),
+        ]);
+
+        return redirect($checkoutSession->url);
     }
 }
