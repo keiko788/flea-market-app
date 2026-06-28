@@ -32,11 +32,17 @@ Route::middleware('guest')->group(function () {
     })->name('register');
 });
 
-Route::middleware('auth')->group(function () {
-    // プロフィール画面
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+// プロフィール編集画面
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
 
+Route::middleware(['auth', 'verified', 'profile.registered'])->group(function () {
     // コメント送信
     Route::post('/item/{item_id}/comment', [CommentController::class, 'store'])->name('comments.store');
     // いいね機能
