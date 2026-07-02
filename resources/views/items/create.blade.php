@@ -120,7 +120,7 @@
                         id="description"
                         class="w-full h-[125px] border border-[#5F5F5F] rounded px-[15px] py-2 mt-1 resize-none">{{ old('description') }}</textarea>
                     @if ($errors->get('description'))
-                    <ul class="text-red-600 space-y-1 mt-2">
+                    <ul class="text-red-600 space-y-1 mt-1">
                         @foreach ((array) $errors->get('description') as $message)
                         <li>{{ $message }}</li>
                         @endforeach

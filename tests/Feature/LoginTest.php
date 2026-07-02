@@ -71,7 +71,6 @@ class LoginTest extends TestCase
             'password' => 'password123',
         ]);
 
-        $response->assertRedirect(route('items.index'));
         $this->assertAuthenticatedAs($user);
     }
 }

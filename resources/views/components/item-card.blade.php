@@ -5,8 +5,9 @@
                             <img src="{{ asset('storage/' . $item->image_path) }}" alt="商品画像"
                                 class="w-full h-full object-cover">
                             @if ($item->purchase)
-                            <div class="absolute top-[-16px] left-[-70px] rotate-[-45deg] bg-red-500 text-white font-bold text-2xl w-[200px] text-center pb-4 pt-12">
-                                SOLD
+                            <div class="absolute top-[-16px] left-[-70px] rotate-[-45deg] bg-red-500 text-white font-bold text-2xl w-[200px] text-center pb-4 pt-12"
+                            data-testid="sold-{{ $item->id }}">
+                                Sold
                             </div>
                             @endif
                         </div>

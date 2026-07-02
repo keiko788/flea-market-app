@@ -32,6 +32,7 @@ Route::middleware('guest')->group(function () {
     })->name('register');
 });
 
+// メール認証誘導画面
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
@@ -54,6 +55,7 @@ Route::middleware(['auth', 'verified', 'profile.registered'])->group(function ()
     Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'editAddress'])->name('purchase.edit.address');
     Route::patch('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress'])->name('purchase.update.address');
     Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
+    Route::get('/purchase/success/{item_id}', [PurchaseController::class, 'success'])->name('purchase.success');
 
     // プロフィール画面
     Route::get('/mypage', [MypageController::class, 'index'])->name('mypage.index');

@@ -55,7 +55,6 @@ class RegisterTest extends TestCase
             ]);
 
         $response->assertSee('パスワードを入力してください');
-
     }
 
     /** @test */
@@ -88,23 +87,27 @@ class RegisterTest extends TestCase
             ]);
 
         $response->assertSee('パスワードと一致しません');
-
     }
 
     /** @test */
-    // public function 全ての項目が入力されている場合、会員情報が登録され、プロフィール設定画面に遷移される(): void
-    // {
-    //     $this->get(route('register'))->assertOk();
+    public function 全ての項目が入力されている場合、会員情報が登録され、メール認証誘導画面に遷移する(): void
+    {
+        $this->get(route('register'))->assertOk();
 
-    //     $response = $this->post(route('register.store'), [
-    //         'name' => '',
-    //         'email' => 'test@example.com',
-    //         'password' => 'password123',
-    //         'password_confirmation' => 'password123',
-    //     ]);
+        $response = $this->post(route('register.store'), [
+            'name' => 'taro',
+            'email' => 'taro@example.com',
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
+        ]);
 
-    //     $response->assertSessionHasErrors([
-    //         'name' => 'お名前を入力してください',
-    //     ]);
-    // }
+        $this->assertDatabaseHas('users', [
+            'name' => 'taro',
+            'email' => 'taro@example.com',
+        ]);
+
+        $this->assertAuthenticated();
+
+        $response->assertRedirect(route('verification.notice'));
+    }
 }

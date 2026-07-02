@@ -7,7 +7,7 @@
                     <img src="{{ asset('storage/' . $item->image_path) }}" alt="商品画像" class="w-full h-full object-cover">
                     @if ($item->purchase)
                     <div class="absolute top-[-40px] left-[-165px] rotate-[-45deg] bg-red-500 text-white font-bold text-5xl w-[460px] text-center pb-6 pt-[120px]">
-                        SOLD
+                        Sold
                     </div>
                     @endif
                 </div>
@@ -40,15 +40,13 @@
                                 </button>
                             </form>
                             @endif
-                            <span class="block text-lg font-bold">
-                                {{ $item->likes()->count() }}
-                            </span>
+                            <span class="block text-lg font-bold" data-testid="likes-count-{{ $item->id }}">{{ $item->likes()->count() }}</span>
                         </div>
 
                         <!-- コメントアイコン -->
                         <div class="flex flex-col items-center">
                             <img src="{{ asset('images/comments.svg') }}" alt="コメントアイコン" class="w-10 h-10 mb-[7px]">
-                            <span class="block text-lg font-bold">{{ $item->comments()->count() }}</span>
+                            <span class="block text-lg font-bold" data-testid="comments-count-{{ $item->id }}">{{ $item->comments()->count() }}</span>
                         </div>
 
                     </div>

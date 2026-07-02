@@ -28,13 +28,4 @@ class Purchase extends Model
     {
         return $this->belongsTo(Item::class);
     }
-
-    public function getStripePaymentMethodAttribute(): string
-    {
-        return match ($this->payment_method) {
-            '1' => 'konbini',
-            '2' => 'card',
-            default => 'card',
-        };
-    }
 }

@@ -19,28 +19,32 @@
                     </div>
 
                     <!-- 支払い方法 -->
-                    <div class="border-b-[1px] border-black w-full px-[35px] pt-[36px] pb-[63px]">
-                        <label for="payment_method" class="text-xl font-bold mb-[30px]">支払い方法</label>
-                        <div class="relative inline-block">
-                            <select name="payment_method"
-                                id="payment_method"
-                                class="pl-2 ml-[67px] w-[265px] h-[31px] border-[#5F5F5F] border-[1px] rounded appearance-none text-[#5F5F5F] focus:outline-none focus:ring-0 focus:border-[#5F5F5F]">
-                                <option value="" disabled {{ old('payment_method') ? '' : 'selected' }} hidden>選択してください</option>
-                                <option value="1" {{ old('payment_method') == 1 ? 'selected' : '' }}>コンビニ払い</option>
-                                <option value="2" {{ old('payment_method') == 2 ? 'selected' : '' }}>カード支払い</option>
-                            </select>
-                            <img src="{{ asset('images/arrow-down.svg') }}"
-                                alt=""
-                                class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 w-3">
+                    <form action="{{ route('purchase.show', $item->id) }}" method="GET">
+                        @csrf
+                        <div class="border-b-[1px] border-black w-full px-[35px] pt-[36px] pb-[63px]">
+                            <label for="payment_method" class="text-xl font-bold mb-[30px]">支払い方法</label>
+                            <div class="relative inline-block">
+                                <select name="payment_method"
+                                    id="payment_method"
+                                    onchange="this.form.submit()"
+                                    class="pl-2 ml-[67px] w-[265px] h-[31px] border-[#5F5F5F] border-[1px] rounded appearance-none text-[#5F5F5F] focus:outline-none focus:ring-0 focus:border-[#5F5F5F]">
+                                    <option value="" disabled {{ old('payment_method') ? '' : 'selected' }} hidden>選択してください</option>
+                                    <option value="1" {{ old('payment_method') == 1 ? 'selected' : '' }}>コンビニ払い</option>
+                                    <option value="2" {{ old('payment_method') == 2 ? 'selected' : '' }}>カード支払い</option>
+                                </select>
+                                <img src="{{ asset('images/arrow-down.svg') }}"
+                                    alt=""
+                                    class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 w-3">
+                            </div>
+
+                            @error('payment_method')
+                            <p class="text-red-600 ml-[67px]">
+                                {{ $message }}
+                            </p>
+                            @enderror
+
                         </div>
-
-                        @error('payment_method')
-                        <p class="text-red-600 ml-[67px]">
-                            {{ $message }}
-                        </p>
-                        @enderror
-
-                    </div>
+                    </form>
 
                     <!-- 配送先 -->
                     <div class="border-b-[1px] border-black w-full px-[35px] pt-[36px] pb-[63px]">
@@ -87,16 +91,24 @@
                                 <td class="text-2xl w-[220px] text-center">¥ <span class="text-[28px]">{{ number_format($item->price) }}</span></td>
                             </tr>
 
-                            <tr class="border-t-[1px] border-black">
+                            <tr class="border-t-[1px] border-black" data-testid="payment-method-summary">
                                 <th class="text-xl">支払い方法</th>
-                                <td id="payment_method_text" class="text-2xl w-[220px] text-center">選択してください</td>
+                                <td class="text-2xl w-[220px] text-center">
+                                    {{
+                                        match (request('payment_method')) {
+                                            '1' => 'コンビニ払い',
+                                            '2' => 'カード支払い',
+                                            default => 'コンビニ払い',
+                                        }
+                                    }}
+                                </td>
                             </tr>
                         </tbody>
                     </table>
 
                     <form action="{{ route('purchase.store', $item->id) }}" method="POST">
                         @csrf
-                        <input type="hidden" name="payment_method" id="selected_payment_method">
+                        <input type="hidden" name="payment_method" value="{{ request('payment_method') }}">
                         <input type="hidden" name="shipping_postal_code" value="{{ $shippingPostalCode }}">
                         <input type="hidden" name="shipping_address" value="{{ $shippingAddress }}">
                         <input type="hidden" name="shipping_building" value="{{ $shippingBuilding }}">
@@ -108,7 +120,7 @@
     </div>
 
     <!-- 支払い方法を小計画面に反映 -->
-    <script>
+    <!-- <script>
         const paymentSelect = document.getElementById('payment_method');
         const paymentText = document.getElementById('payment_method_text');
         const selectedPaymentMethod = document.getElementById('selected_payment_method');
@@ -117,5 +129,5 @@
             paymentText.textContent = this.options[this.selectedIndex].text;
             selectedPaymentMethod.value = this.value;
         });
-    </script>
+    </script> -->
 </x-app-layout>

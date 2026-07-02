@@ -64,24 +64,29 @@ class PurchaseController extends Controller
 
         $validated = $request->validated();
 
-        // 購入情報を登録
-        $purchase = Purchase::create([
-            'user_id' => auth()->id(),
-            'item_id' => $item->id,
-            'payment_method' => $validated['payment_method'],
-            'shipping_postal_code' => $validated['shipping_postal_code'],
-            'shipping_address' => $validated['shipping_address'],
-            'shipping_building' => $request->input('shipping_building'),
+        // 購入情報をsessionに登録
+        session([
+            'purchase' => [
+                'user_id' => auth()->id(),
+                'item_id' => $item->id,
+                'payment_method' => $validated['payment_method'],
+                'shipping_postal_code' => $validated['shipping_postal_code'],
+                'shipping_address' => $validated['shipping_address'],
+                'shipping_building' => $request->input('shipping_building'),
+            ],
         ]);
-
-        session()->forget('purchase_address');
 
         // Stripe APIキーを設定
         Stripe::setApiKey(config('services.stripe.secret'));
 
         // Stripe決済画面へ遷移するためのCheckoutセッションを作成
+        $stripePaymentMethod = match ($validated['payment_method']) {
+            '1' => 'konbini',
+            '2' => 'card',
+        };
+
         $checkoutSession = Session::create([
-            'payment_method_types' => [$purchase->stripe_payment_method],
+            'payment_method_types' => [$stripePaymentMethod],
             'line_items' => [[
                 'price_data' => [
                     'currency' => 'jpy',
@@ -93,10 +98,22 @@ class PurchaseController extends Controller
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => route('items.index'),
+            'success_url' => route('purchase.success', $item->id),
             'cancel_url' => route('purchase.show', $item->id),
         ]);
 
         return redirect($checkoutSession->url);
+    }
+
+    // 決済完了後購入情報を登録
+    public function success()
+    {
+        $purchase = session('purchase');
+
+        Purchase::create($purchase);
+
+        session()->forget(['purchase', 'purchase_address']);
+
+        return redirect()->route('items.index');
     }
 }
