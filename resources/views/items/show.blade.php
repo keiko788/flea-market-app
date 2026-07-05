@@ -59,7 +59,7 @@
 
                     <!-- 商品説明 -->
                     <h2 class="text-4xl font-bold mb-[48px]">商品説明</h2>
-                    <p class="text-2xl mb-[64px]">
+                    <p class="text-2xl mb-[64px] whitespace-pre-line">
                         {{ $item->description }}
                     </p>
 
@@ -100,7 +100,7 @@
                         <span class="text-3xl font-bold">{{ $comment->user->name }}</span>
                     </div>
                     <div class="bg-[#D9D9D9] px-[15px] py-[15px] rounded-[5px] w-[570px] mb-11">
-                        <p class="font-light text-xl">{{ $comment->body }}</p>
+                        <p class="font-light text-xl whitespace-pre-line">{{ $comment->body }}</p>
                     </div>
                     @endforeach
 

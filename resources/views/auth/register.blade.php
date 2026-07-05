@@ -17,7 +17,7 @@
                         name="name"
                         value="{{ old('name') }}" autofocus />
                     @error('name')
-                    <p class="text-red-600 ml-[67px]">
+                    <p class="text-sm text-red-600 mt-2">
                         {{ $message }}
                     </p>
                     @enderror
@@ -69,7 +69,7 @@
                     </label>
                     <input id="password_confirmation"
                         class="block w-full border border-[#5F5F5F] h-14
-                    rounded mb-[116px] px-4 mb-20"
+                    rounded px-4"
                         type="password"
                         name="password_confirmation" />
                     @if ($errors->get('password_confirmation'))
@@ -81,7 +81,8 @@
                     @endif
                 </div>
 
-                <button type="submit" class="w-full text-white font-bold text-[26px] bg-[#FF5555] rounded-[5px] flex items-center justify-center h-[65.25px] mb-[18px] cursor-pointer">
+                <button type="submit" class="w-full text-white font-bold text-[26px] bg-[#FF5555]
+                rounded-[5px] flex items-center justify-center h-[65.25px] mb-[18px] mt-[116px] cursor-pointer">
                     登録する
                 </button>
 

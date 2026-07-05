@@ -212,6 +212,7 @@ class PurchaseTest extends TestCase
     /** @test */
     public function 購入した商品に送付先住所が紐づいて登録される(): void
     {
+        $this->withoutExceptionHandling();
         $user = User::factory()->create();
 
         Profile::factory()->create([

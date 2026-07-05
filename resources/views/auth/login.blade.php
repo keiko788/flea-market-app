@@ -37,7 +37,7 @@
                         name="password" />
 
                     @error('password')
-                    <p class="text-red-600 ml-[67px]">
+                    <p class="text-sm text-red-600 mt-2">
                         {{ $message }}
                     </p>
                     @enderror

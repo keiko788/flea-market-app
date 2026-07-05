@@ -44,6 +44,7 @@ class LoginTest extends TestCase
         User::factory()->create([
             'name' => 'テスト太郎',
             'email' => 'taro@example.com',
+            'password' => bcrypt('password'),
         ]);
 
         $this->get(route('login'))->assertOk();
@@ -66,7 +67,7 @@ class LoginTest extends TestCase
 
         $this->get(route('login'))->assertOk();
 
-        $response = $this->post(route('login'), [
+        $this->post(route('login'), [
             'email' => $user->email,
             'password' => 'password123',
         ]);

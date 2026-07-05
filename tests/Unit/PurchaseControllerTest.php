@@ -74,7 +74,7 @@ class PurchaseControllerTest extends TestCase
             ->get(route('purchase.edit.address', $item->id));
 
         $response->assertOk();
-        $response->assertViewIs('purchase.address');
+        $response->assertViewIs('purchases.address');
     }
 
     /** @test */

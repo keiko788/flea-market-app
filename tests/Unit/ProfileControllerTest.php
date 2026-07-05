@@ -27,7 +27,7 @@ class ProfileControllerTest extends TestCase
 
         $image = UploadedFile::fake()->image('new.jpg');
 
-        $response = $this->actingAs($user)->patch(route('profile.update'), [
+        $this->actingAs($user)->patch(route('profile.update'), [
             'name' => '更新ユーザー',
             'postal_code' => '987-6543',
             'address' => '東京都渋谷区渋谷4-5-6',

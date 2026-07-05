@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Item;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 
 class ItemSeeder extends Seeder
 {
@@ -13,12 +14,18 @@ class ItemSeeder extends Seeder
      */
     public function run(): void
     {
-        $seller = User::where('email', 'seller@example.com')->first();
-        $otherUser = User::where('email', 'buyer@example.com')->first();
+        File::ensureDirectoryExists(storage_path('app/public/items'));
+
+        File::copyDirectory(
+            public_path('images/items'),
+            storage_path('app/public/items')
+        );
+
+        $user = User::where('email', 'test@example.com')->first();
 
         $items = [
             [
-                'user_id' => $seller->id,
+                'user_id' => $user->id,
                 'name' => '腕時計',
                 'description' => 'スタイリッシュなデザインのメンズ腕時計',
                 'image_path' => 'items/watch.jpg',
@@ -27,7 +34,7 @@ class ItemSeeder extends Seeder
                 'brand_name' => 'Rolax',
             ],
             [
-                'user_id' => $seller->id,
+                'user_id' => $user->id,
                 'name' => 'HDD',
                 'description' => '高速で信頼性の高いハードディスク',
                 'image_path' => 'items/hdd.jpg',
@@ -36,7 +43,7 @@ class ItemSeeder extends Seeder
                 'brand_name' => '西芝',
             ],
             [
-                'user_id' => $seller->id,
+                'user_id' => $user->id,
                 'name' => '玉ねぎ3束',
                 'description' => '新鮮な玉ねぎ3束のセット',
                 'image_path' => 'items/onion.jpg',
@@ -45,7 +52,7 @@ class ItemSeeder extends Seeder
                 'brand_name' => 'なし',
             ],
             [
-                'user_id' => $seller->id,
+                'user_id' => $user->id,
                 'name' => '革靴',
                 'description' => 'クラシックなデザインの革靴',
                 'image_path' => 'items/shoes.jpg',
@@ -53,7 +60,7 @@ class ItemSeeder extends Seeder
                 'price' => 4000,
             ],
             [
-                'user_id' => $seller->id,
+                'user_id' => $user->id,
                 'name' => 'ノートPC',
                 'description' => '高性能なノートパソコン',
                 'image_path' => 'items/laptop.jpg',
@@ -61,7 +68,7 @@ class ItemSeeder extends Seeder
                 'price' => '45000',
             ],
             [
-                'user_id' => $otherUser->id,
+                'user_id' => $user->id,
                 'name' => 'マイク',
                 'description' => '高音質のレコーディング用マイク',
                 'image_path' => 'items/mic.jpg',
@@ -70,7 +77,7 @@ class ItemSeeder extends Seeder
                 'brand_name' => 'なし',
             ],
             [
-                'user_id' => $otherUser->id,
+                'user_id' => $user->id,
                 'name' => 'ショルダーバッグ',
                 'description' => 'おしゃれなショルダーバッグ',
                 'image_path' => 'items/bag.jpg',
@@ -78,7 +85,7 @@ class ItemSeeder extends Seeder
                 'price' => 3500,
             ],
             [
-                'user_id' => $otherUser->id,
+                'user_id' => $user->id,
                 'name' => 'タンブラー',
                 'description' => '使いやすいタンブラー',
                 'image_path' => 'items/tumbler.jpg',
@@ -87,7 +94,7 @@ class ItemSeeder extends Seeder
                 'brand_name' => 'なし',
             ],
             [
-                'user_id' => $otherUser->id,
+                'user_id' => $user->id,
                 'name' => 'コーヒーミル',
                 'description' => '手動のコーヒーミル',
                 'image_path' => 'items/grinder.jpg',
@@ -96,7 +103,7 @@ class ItemSeeder extends Seeder
                 'brand_name' => 'Starbacks',
             ],
             [
-                'user_id' => $otherUser->id,
+                'user_id' => $user->id,
                 'name' => 'メイクセット',
                 'description' => '便利なメイクアップセット',
                 'image_path' => 'items/makeup.jpg',

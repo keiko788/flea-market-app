@@ -7,7 +7,7 @@
             @method('PATCH')
 
             @php
-            $purchaseAddress = session('purchase_address');
+            $purchaseAddress = session('purchase_address.' . $item->id);
             @endphp
 
             <!-- 郵便番号 -->
@@ -15,7 +15,7 @@
                 <label for="shipping_postal_code" class="block text-2xl font-bold mb-2">郵便番号</label>
                 <input type="text" id="shipping_postal_code" class="block w-full border border-[#5F5F5F] h-[45px] rounded px-4"
                     name="shipping_postal_code"
-                    value="{{ old('postal_code',
+                    value="{{ old('shipping_postal_code',
                     $purchaseAddress['shipping_postal_code'] ?? $profile->postal_code) }}" />
                 @if ($errors->get('shipping_postal_code'))
                 <ul class="text-sm text-red-600 space-y-1 mt-2">
@@ -31,10 +31,10 @@
                 <label for="shipping_address" class="block text-2xl font-bold mb-2">住所</label>
                 <input type="text" id="shipping_address" class="block w-full border border-[#5F5F5F] h-[45px] rounded px-4"
                     name="shipping_address"
-                    value="{{ old('address',
+                    value="{{ old('shipping_address',
                     $purchaseAddress['shipping_address'] ?? $profile->address) }}" />
                 @error('shipping_address')
-                <p class="text-red-600 ml-[67px]">
+                <p class="text-sm text-red-600 mt-2">
                     {{ $message }}
                 </p>
                 @enderror
@@ -45,7 +45,7 @@
             <div class="mt-[90px]">
                 <label for="shipping_building" class="block text-2xl font-bold mb-2">建物名</label>
                 <input type="text" id="shipping_building" class="block w-full border border-[#5F5F5F] h-[45px] rounded px-4"
-                    name="shipping_building" value="{{ old('building',
+                    name="shipping_building" value="{{ old('shipping_building',
                     $purchaseAddress ? $purchaseAddress['shipping_building'] : $profile->building) }}" />
             </div>
 

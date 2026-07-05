@@ -23,7 +23,7 @@
                     class="hidden">
             </div>
             @if ($errors->get('image_path'))
-            <ul class="text-red-600">
+            <ul class="text-sm text-red-600">
                 @foreach ((array) $errors->get('image_path') as $message)
                 <li>{{ $message }}</li>
                 @endforeach
@@ -56,7 +56,7 @@
                         @endforeach
                     </div>
                     @error('category_ids')
-                    <p class="text-red-600 mt-2">
+                    <p class="text-sm text-red-600 mt-2">
                         {{ $message }}
                     </p>
                     @enderror
@@ -83,7 +83,7 @@
                         class="pointer-events-none absolute top-1/2 -translate-y-1/2  right-[14px] w-[18px]">
                 </div>
                 @error('condition')
-                <p class="text-red-600 mt-2">
+                <p class="text-sm text-red-600 mt-2">
                     {{ $message }}
                 </p>
                 @enderror
@@ -100,7 +100,7 @@
                         value="{{ old('name') }}"
                         class="w-full h-[45px] border border-[#5F5F5F] rounded px-[15px] mt-1">
                     @error('name')
-                    <p class="text-red-600 mt-2">
+                    <p class="text-sm text-red-600 mt-2">
                         {{ $message }}
                     </p>
                     @enderror
@@ -120,7 +120,7 @@
                         id="description"
                         class="w-full h-[125px] border border-[#5F5F5F] rounded px-[15px] py-2 mt-1 resize-none">{{ old('description') }}</textarea>
                     @if ($errors->get('description'))
-                    <ul class="text-red-600 space-y-1 mt-1">
+                    <ul class="text-sm text-red-600 space-y-1 mt-1">
                         @foreach ((array) $errors->get('description') as $message)
                         <li>{{ $message }}</li>
                         @endforeach
@@ -143,7 +143,7 @@
                             class="w-full h-[45px] border border-[#5F5F5F] rounded pl-10 pr-[15px]">
                     </div>
                     @if ($errors->get('price'))
-                    <ul class="text-red-600 space-y-1 mt-2">
+                    <ul class="text-sm text-red-600 space-y-1 mt-2">
                         @foreach ((array) $errors->get('price') as $message)
                         <li>{{ $message }}</li>
                         @endforeach

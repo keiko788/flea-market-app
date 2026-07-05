@@ -28,9 +28,9 @@
                                     id="payment_method"
                                     onchange="this.form.submit()"
                                     class="pl-2 ml-[67px] w-[265px] h-[31px] border-[#5F5F5F] border-[1px] rounded appearance-none text-[#5F5F5F] focus:outline-none focus:ring-0 focus:border-[#5F5F5F]">
-                                    <option value="" disabled {{ old('payment_method') ? '' : 'selected' }} hidden>選択してください</option>
-                                    <option value="1" {{ old('payment_method') == 1 ? 'selected' : '' }}>コンビニ払い</option>
-                                    <option value="2" {{ old('payment_method') == 2 ? 'selected' : '' }}>カード支払い</option>
+                                    <option value="" disabled {{ request('payment_method') ? '' : 'selected' }} hidden>選択してください</option>
+                                    <option value="1" {{ request('payment_method') == 1 ? 'selected' : '' }}>コンビニ払い</option>
+                                    <option value="2" {{ request('payment_method') == 2 ? 'selected' : '' }}>カード支払い</option>
                                 </select>
                                 <img src="{{ asset('images/arrow-down.svg') }}"
                                     alt=""
@@ -38,7 +38,7 @@
                             </div>
 
                             @error('payment_method')
-                            <p class="text-red-600 ml-[67px]">
+                            <p class="text-sm text-red-600 mt-2">
                                 {{ $message }}
                             </p>
                             @enderror
@@ -57,7 +57,7 @@
                         </div>
 
                         @php
-                        $purchaseAddress = session('purchase_address');
+                        $purchaseAddress = session('purchase_address.' . $item->id);
                         $shippingPostalCode = $purchaseAddress['shipping_postal_code'] ?? $profile->postal_code;
                         $shippingAddress = $purchaseAddress['shipping_address'] ?? $profile->address;
                         $shippingBuilding = $purchaseAddress ? $purchaseAddress['shipping_building'] : $profile->building;

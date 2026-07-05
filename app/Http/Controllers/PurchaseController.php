@@ -24,7 +24,7 @@ class PurchaseController extends Controller
 
         $profile = $user->profile;
 
-        return view('purchase.show', compact('item', 'user', 'profile'));
+        return view('purchases.show', compact('item', 'user', 'profile'));
     }
 
     // 配送先住所変更画面を表示する
@@ -33,7 +33,7 @@ class PurchaseController extends Controller
         $item = $item_id;
         $profile = auth()->user()->profile;
 
-        return view('purchase.address', compact('item', 'profile'));
+        return view('purchases.address', compact('item', 'profile'));
     }
 
     // 配送先住所を更新
@@ -46,7 +46,7 @@ class PurchaseController extends Controller
         $validated['shipping_building'] = $request->input('shipping_building', '');
 
         session([
-            'purchase_address' => $validated,
+            'purchase_address.'.$item->id => $validated,
         ]);
 
         return redirect()->route('purchase.show', $item->id);
@@ -112,7 +112,10 @@ class PurchaseController extends Controller
 
         Purchase::create($purchase);
 
-        session()->forget(['purchase', 'purchase_address']);
+        session()->forget([
+            'purchase',
+            'purchase_address.'.$purchase['item_id'],
+        ]);
 
         return redirect()->route('items.index');
     }
