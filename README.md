@@ -2,8 +2,6 @@
 
 ## 環境構築
 
----
-
 ### Dockerビルド
 
 1. リポジトリをクローン
@@ -35,12 +33,14 @@ cp .env.example .env
 ```
 `.env` ファイルを作成後、以下の設定を確認してください。
 
+```env
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
 DB_DATABASE=laravel
 DB_USERNAME=sail
 DB_PASSWORD=password
+```
 
 5. Sailを起動
 
@@ -59,19 +59,19 @@ DB_PASSWORD=password
 
 2. マイグレーションを実行
 
-※ 既存テーブルを削除して再作成します。
-
 ```bash
 ./vendor/bin/sail artisan migrate:fresh
 ```
 
-3. シーディングを実行
+※ 既存テーブルを削除して再作成します。
 
-※ ダミーデータを投入します。
+3. シーディングを実行
 
 ```bash
 ./vendor/bin/sail artisan db:seed
 ```
+
+※ ダミーデータを投入します。
 
 4. シンボリックリンクを作成
 
@@ -95,8 +95,6 @@ DB_PASSWORD=password
 
 ## 使用技術
 
----
-
 - PHP 8.5
 - Laravel 10.x
 - MySQL 8.4
@@ -109,13 +107,13 @@ DB_PASSWORD=password
 - Laravel Fortify 1.x
 - Stripe PHP 20.x
 
+
 ## ER図
 ![ER図](./docs/er.drawio.png)
 
 
 ## URL
 
----
 
 ### 開発環境
 
