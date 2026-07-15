@@ -75,7 +75,7 @@
                     rounded px-4"
                     name="address" value="{{ old('address', $profile?->address) }}" />
                 @error('address')
-                <p class="text-red-600 ml-[67px]">
+                <p class="text-sm text-red-600 mt-2">
                     {{ $message }}
                 </p>
                 @enderror
